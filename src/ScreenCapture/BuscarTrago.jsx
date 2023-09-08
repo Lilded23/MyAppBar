@@ -129,11 +129,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 16,
+    
   },
   image: {
     width: 50,
     height: 50,
     marginRight: 8,
+    borderRadius:50
   },
   title: {
     fontSize: 18,
