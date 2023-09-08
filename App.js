@@ -1,20 +1,43 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import { SafeAreaView, StyleSheet, Text, View , Platform} from "react-native";
+import { ButtomMenuBar } from "./src/componentes/ButtomMenuBar";
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.contetConteiner}>
+        <View style={[styles.textContairner ,{paddingVertical:Platform.OS !=='os'? 35:0}]} >
+          <Text style={styles.text}>𝐌𝐲 𝐀𝐩𝐩 𝐁𝐚𝐫</Text>
+        </View>
+      </View>
+      <ButtomMenuBar style={styles.ButtomMenuBarStyle}></ButtomMenuBar>
+      <StatusBar style="light" />
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#34495E",
+  },
+  text: {
+    textAlign: "center",
+    fontSize: 40,
+    fontWeight: "bold",
+    fontStyle: "italic",
+    fontFamily: "", //pendiente de cargar font
+
+    color: "#FFFFFF",
+  },
+  textContairner: {
+    backgroundColor: "#212F3C",
+    paddingTop:35,
+    paddingBottom:10,
+    width: "100%",
+    justifyContent: "center", // Centro verticalmente
+    alignItems: "center", // Centro horizontalmente
+    borderBottomRightRadius: 10,
+    borderBottomLeftRadius: 10,
   },
 });
