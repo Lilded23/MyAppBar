@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "center", // Centro verticalmente
     alignItems: "center", // Centro horizontalmente
-    borderBottomRightRadius: 10,
-    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 500,
+    borderBottomLeftRadius: 500,
   },
 });

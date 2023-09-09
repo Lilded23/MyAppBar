@@ -23,6 +23,9 @@ export const BuscarTrago = () => {
   //Guardar resultaos de la busqueda en la APi
   const [result, setResult] = useState([]);
 
+  const [isSelected, setIsSelected] = useState(false);
+  const [selectedItems, setSelectedItems] = useState({});
+
   //Conexion a la api para Buscar
   const tragos = async () => {
     try {
@@ -49,13 +52,8 @@ export const BuscarTrago = () => {
         <View style={styles.itemContainer}>
           <Image source={{ uri: item.strDrinkThumb }} style={styles.image} />
           <Text style={styles.title}>{item.strDrink}</Text>
-          <TouchableOpacity style={styles.containerHeard}>
-            <AntDesign
-              name="hearto"
-              size={20}
-              color="black"
-              style={styles.heartSelect}
-            />
+          <TouchableOpacity onPress={()=>hardItemPress(item)} style={styles.containerHeard}>
+            {isSelected?(<AntDesign name="heart" size={24} color="red" />):(<AntDesign name="hearto" size={24} color="black" />)}
           </TouchableOpacity>
         </View>
       </TouchableOpacity>
@@ -64,8 +62,22 @@ export const BuscarTrago = () => {
 
   //Navegar a la pantalla de CardTrago
   const handleItemPress = (item) => {
+
     navigator.navigate("CardTrago", { tragoId: item.idDrink });
+    
   };
+
+  const hardItemPress= (item)=>{
+    setSelectedItems((prevSelectedItems) => ({
+      ...prevSelectedItems,
+      [item.idDrink]: !prevSelectedItems[item.idDrink],
+    }));
+  }
+
+  const renderItem = ({ item }) => {
+    const isSelected = selectedItems[item.id];
+  }
+  
 
   return (
 
@@ -80,7 +92,7 @@ export const BuscarTrago = () => {
       ></TextInput>
       {result ? (
         result.length === 0 ? (
-          <Text>No se encontraron resultados.</Text>
+          <Text>Cargando Tragos</Text>
         ) : (
           <FlatList
             data={result}
@@ -89,7 +101,7 @@ export const BuscarTrago = () => {
           />
         )
       ) : (
-        <Text>Cargando resultados...</Text>
+       null
       )}
     </View>
   );
@@ -109,7 +121,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     color: "#000000",
     backgroundColor: "#FFFFFF",
-    borderRadius: 15,
+    borderRadius: 25,
     marginVertical: 10,
     marginHorizontal: 20,
   },
@@ -141,9 +153,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     color: "#FFFFFF",
+    paddingLeft:10
   },
   containerHeard: {
     marginLeft: "auto",
+    paddingRight:10
   },
-  heartSelect: {},
 });
