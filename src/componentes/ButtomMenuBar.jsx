@@ -1,7 +1,6 @@
 import React from "react";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { NavigationContainer, useNavigation } from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Home } from "../ScreenCapture/Home";
 import { CartShopping } from "../ScreenCapture/CartShopping";
@@ -11,11 +10,9 @@ const Tab = createBottomTabNavigator();
 
 
 export const ButtomMenuBar = () => {
-//  const navigation = useNavigation();
   return (
     <NavigationContainer>
       <Tab.Navigator
-        //   tabBar={() =>(<VisualMenuBar></VisualMenuBar>)}
         screenOptions={{
           headerShown: false,
           tabBarStyle: {
@@ -50,9 +47,9 @@ export const ButtomMenuBar = () => {
           component={BuscarTragoRouter}
           options={{tabBarShowLabel:false ,tabBarIcon:({focused})=>{
             return(
-             
+         
                 <Icon name="magnify" size={50} color="#2980B9" style={{color: focused ? '#2980B9' : '#797D7F'}}></Icon>
-          
+
             )
           } }}
         />
@@ -60,10 +57,8 @@ export const ButtomMenuBar = () => {
           name="Carrito"
           component={CartShopping}
           options={{tabBarShowLabel:false , tabBarIcon:({focused})=>{
-            return(
-            
-                <Icon name="cart" size={50} color='#2980B9' style={{color: focused ? '#2980B9' : '#797D7F'}}></Icon>
-           
+            return( 
+                <Icon name="cart" size={50} color='#2980B9' style={{color: focused ? '#2980B9' : '#797D7F'}}></Icon>          
             )
           }}}
         />
@@ -72,16 +67,4 @@ export const ButtomMenuBar = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#212F3C",
-    paddingVertical: 6,
-    width: "90%",
-    justifyContent: "center", // Centro verticalmente
-    alignItems: "center", // Centro horizontalmente
-    // borderTopRightRadius: 15,
-    //  borderTopLeftRadius: 15,
-    flexDirection: "row",
-    borderRadius: 50,
-  },
-});
+

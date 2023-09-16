@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Text, Image } from "react-native";
 import { busquedaApiId } from "../Connection";
-import { Colors } from "react-native/Libraries/NewAppScreen";
 
 export const CardTrago = ({ route }) => {
   const [trago, setTrago] = useState([]);

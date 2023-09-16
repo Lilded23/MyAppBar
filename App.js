@@ -1,10 +1,12 @@
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaView, StyleSheet, Text, View , Platform} from "react-native";
 import { ButtomMenuBar } from "./src/componentes/ButtomMenuBar";
+import { PaperProvider } from "react-native-paper";
 
 export default function App() {
   return (
-    <SafeAreaView style={styles.container}>
+    <PaperProvider>
+          <SafeAreaView style={styles.container}>
       <View style={styles.contetConteiner}>
         <View style={[styles.textContairner ,{paddingVertical:Platform.OS !=='os'? 35:0}]} >
           <Text style={styles.text}>𝐌𝐲 𝐀𝐩𝐩 𝐁𝐚𝐫</Text>
@@ -13,6 +15,9 @@ export default function App() {
       <ButtomMenuBar style={styles.ButtomMenuBarStyle}></ButtomMenuBar>
       <StatusBar style="light" />
     </SafeAreaView>
+
+    </PaperProvider>
+
   );
 }
 

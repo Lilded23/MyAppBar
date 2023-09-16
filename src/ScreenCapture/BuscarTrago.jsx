@@ -11,7 +11,8 @@ import { StyleSheet } from "react-native";
 import { busquedaApi } from "../Connection";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-
+import { cargarFavorito,deleteFavorite,addNewFavorite } from "../../dababase/acciones";
+import { RefreshControl } from "react-native";
 
 
 export const BuscarTrago = () => {
@@ -23,17 +24,12 @@ export const BuscarTrago = () => {
   //Guardar resultaos de la busqueda en la APi
   const [result, setResult] = useState([]);
 
-  const [isSelected, setIsSelected] = useState(false);
-  const [selectedItems, setSelectedItems] = useState({});
-
   //Conexion a la api para Buscar
   const tragos = async () => {
     try {
       console.log(searchText);
       const date = await busquedaApi(searchText.toString());
-      //console.log(date)
       setResult(date.drinks);
-      //console.log(result)
     } catch (error) {
       console.error("Error al buscar el producto");
     }
@@ -41,9 +37,18 @@ export const BuscarTrago = () => {
   //Cargar datos de la api en el FlatList
   useEffect(() => {
     tragos();
-    console.log("Efecto useEffect ejecutado");
-    console.log("Valor actual de result:");
   }, [searchText]);
+
+  //cargar Tragos al objeto
+  useEffect(() => {
+    cargarFavorito().then((favorito) => {
+      setFavorite(favorito)
+    })
+  }, [])
+
+
+
+  const [favorite, setFavorite] = useState([])
 
   //Codigo que se insertara para cada item recibido
   const CargarImagen = ({ item }) => {
@@ -52,8 +57,24 @@ export const BuscarTrago = () => {
         <View style={styles.itemContainer}>
           <Image source={{ uri: item.strDrinkThumb }} style={styles.image} />
           <Text style={styles.title}>{item.strDrink}</Text>
-          <TouchableOpacity onPress={()=>hardItemPress(item)} style={styles.containerHeard}>
-            {isSelected?(<AntDesign name="heart" size={24} color="red" />):(<AntDesign name="hearto" size={24} color="black" />)}
+          <TouchableOpacity onPress={ async()=>{
+              if (favorite.some((favorito) => favorito.id === item.idDrink)) {
+                await deleteFavorite(item.idDrink);
+              } else {
+                await addNewFavorite(item);
+              }
+
+              cargarFavorito().then((favorito) =>{
+                setFavorite(favorito)
+              })
+            }
+          } style={styles.containerHeard}>
+            {favorite.some((favorito) => favorito.id === item.idDrink) ? (
+              <AntDesign name="heart" size={24} color="red" />  
+                         
+            ):(
+              <AntDesign name="hearto" size={24} color="black" />
+            )}
           </TouchableOpacity>
         </View>
       </TouchableOpacity>
@@ -62,22 +83,8 @@ export const BuscarTrago = () => {
 
   //Navegar a la pantalla de CardTrago
   const handleItemPress = (item) => {
-
-    navigator.navigate("CardTrago", { tragoId: item.idDrink });
-    
+    navigator.navigate("CardTrago", { tragoId: item.idDrink });    
   };
-
-  const hardItemPress= (item)=>{
-    setSelectedItems((prevSelectedItems) => ({
-      ...prevSelectedItems,
-      [item.idDrink]: !prevSelectedItems[item.idDrink],
-    }));
-  }
-
-  const renderItem = ({ item }) => {
-    const isSelected = selectedItems[item.id];
-  }
-  
 
   return (
 
@@ -98,6 +105,7 @@ export const BuscarTrago = () => {
             data={result}
             keyExtractor={(item) => item.idDrink.toString()}
             renderItem={CargarImagen}
+
           />
         )
       ) : (
@@ -124,6 +132,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     marginVertical: 10,
     marginHorizontal: 20,
+    fontSize:20,
   },
 
   buttonBuscar: {
