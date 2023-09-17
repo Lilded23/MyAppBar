@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Text, Image } from "react-native";
+import { View, StyleSheet, Text, Image, TouchableOpacity, ScrollView } from "react-native";
 import { busquedaApiId } from "../Connection";
 
 export const CardTrago = ({ route }) => {
@@ -37,18 +37,28 @@ export const CardTrago = ({ route }) => {
   };
 
   return (
+    <ScrollView style={styles.scrollContainer}>
     <View style={styles.container}>
       <Image source={{ uri: trago.strDrinkThumb }} style={styles.image}></Image>
       <Text style={styles.titulo}>{trago.strDrink}</Text>
       <Text style={styles.instruc}>{trago.strInstructions}</Text>
       {renderIngredients()}
-    </View>
+      <TouchableOpacity>
+        <View style={styles.buttonAdd}>
+          <Text style={styles.buttonText}>Guardar</Text>
+        </View>
+      </TouchableOpacity>  
+    </View >
+    <View style={{ height: 0}}></View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  scrollContainer: {
     flex: 1,
+  },
+  container: {
     backgroundColor: "#34495E",
     alignItems: "center",
     paddingTop: 40,
@@ -57,11 +67,7 @@ const styles = StyleSheet.create({
     width: 300,
     height: 300,
     borderRadius: 20,
-    shadowColor: "#0000", // Color de la sombra
-    shadowOffset: { width: 0, height: 4 }, // Desplazamiento horizontal y vertical de la sombra
-    shadowOpacity: 0.5, // Opacidad de la sombra
-    shadowRadius: 9, // Radio de la sombra
-   // elevation: 4, // (Solo para Android) Controla la elevación de la sombra}
+
   },
   titulo: {
     paddingTop:10,
@@ -74,4 +80,18 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: "#ECF0F1",
   },
+
+  buttonAdd:{
+   color:'#000000',
+   backgroundColor:'#00897B',
+   paddingHorizontal:30,
+   paddingVertical:10,
+   marginTop:10,
+   borderRadius:100,
+   marginBottom:0 
+  },
+  buttonText:{
+    color:'white',
+    fontSize: 20, 
+  }
 });

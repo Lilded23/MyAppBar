@@ -12,7 +12,6 @@ import { busquedaApi } from "../Connection";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { cargarFavorito,deleteFavorite,addNewFavorite } from "../../dababase/acciones";
-import { RefreshControl } from "react-native";
 
 
 export const BuscarTrago = () => {

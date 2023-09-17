@@ -4,17 +4,26 @@ import {
   StyleSheet,
   TouchableOpacity,
   FlatList,
-  ScrollView,
 } from "react-native";
 import { cargarFavorito } from "../../dababase/acciones";
 import { useState } from "react";
 import { busquedaApiId } from "../Connection";
 import { Card, Text } from "react-native-paper";
 import { RefreshControl } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
+
 
 export const Home = () => {
+  const navigator = useNavigation();
   const [trago, setTrago] = useState([]);
   const [loading, setLoading] = useState();
+
+
+  const handleItemPress = (item)=>{
+navigator.navigate("CardTrago" , {tragoId: item.idDrink})
+
+  }
 
   const fetchData = async () => {
     try {
@@ -45,18 +54,19 @@ export const Home = () => {
     }
   }, []);
 
-  const [refreshing, setRegreshing] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = () => {
-    setRegreshing(true);
-    fetchData().then(() => setRegreshing(false));
+    console.log('refreshing')
+    setRefreshing(true);
+    fetchData().then(() => setRefreshing(false));
   };
 
   const cargarTrago = (item) => {
     //console.log("Cargar desde cargoTrago",item)
     const tragoData = item.item.drinks[0];
     return (
-      <TouchableOpacity key={tragoData.idDrink} style={styles.cardFavTrago}>
+      <TouchableOpacity key={tragoData.idDrink} style={styles.cardFavTrago} onPress={()=>handleItemPress(tragoData)}>
         <Card style={{ backgroundColor: "#212F3C" }}>
           <Card.Title
             title={tragoData.strDrink}
@@ -83,8 +93,8 @@ export const Home = () => {
             renderItem={cargarTrago}
             RefreshControl={
               <RefreshControl
-                refreshing={refreshing}
-                onRefresh={onRefresh}
+              refreshing={refreshing}
+              onRefresh={onRefresh}
                 colors={["#1A237E"]}
               />
             }

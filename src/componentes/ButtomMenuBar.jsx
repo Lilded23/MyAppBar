@@ -16,15 +16,15 @@ export const ButtomMenuBar = () => {
         screenOptions={{
           headerShown: false,
           tabBarStyle: {
-            position: "absolute",
+           
             backgroundColor: "#212F3C",
-            borderRadius: 50,
+            borderTopLeftRadius: 50,
+            borderTopRightRadius:50,
             borderTopWidth: 0,
             paddingHorizontal: 20,
-            marginVertical: 10,
+            marginTop: 0,
             height: 80,
-            left: 20,
-            right: 20,
+
           },
           
         }}
