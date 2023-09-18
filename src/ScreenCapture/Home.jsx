@@ -4,6 +4,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   FlatList,
+  ScrollView,
 } from "react-native";
 import { cargarFavorito } from "../../dababase/acciones";
 import { useState } from "react";
@@ -12,18 +13,14 @@ import { Card, Text } from "react-native-paper";
 import { RefreshControl } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-
-
 export const Home = () => {
   const navigator = useNavigation();
   const [trago, setTrago] = useState([]);
   const [loading, setLoading] = useState();
 
-
-  const handleItemPress = (item)=>{
-navigator.navigate("CardTrago" , {tragoId: item.idDrink})
-
-  }
+  const handleItemPress = (item) => {
+    navigator.navigate("CardTrago", { tragoId: item.idDrink });
+  };
 
   const fetchData = async () => {
     try {
@@ -57,7 +54,7 @@ navigator.navigate("CardTrago" , {tragoId: item.idDrink})
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = () => {
-    console.log('refreshing')
+    console.log("refreshing");
     setRefreshing(true);
     fetchData().then(() => setRefreshing(false));
   };
@@ -66,7 +63,11 @@ navigator.navigate("CardTrago" , {tragoId: item.idDrink})
     //console.log("Cargar desde cargoTrago",item)
     const tragoData = item.item.drinks[0];
     return (
-      <TouchableOpacity key={tragoData.idDrink} style={styles.cardFavTrago} onPress={()=>handleItemPress(tragoData)}>
+      <TouchableOpacity
+        key={tragoData.idDrink}
+        style={styles.cardFavTrago}
+        onPress={() => handleItemPress(tragoData)}
+      >
         <Card style={{ backgroundColor: "#212F3C" }}>
           <Card.Title
             title={tragoData.strDrink}
@@ -82,8 +83,8 @@ navigator.navigate("CardTrago" , {tragoId: item.idDrink})
   };
 
   return (
-    <View style={styles.container}>
 
+      <View style={styles.container}>
         {loading ? (
           <Text>Cargando datos</Text>
         ) : trago.length > 0 ? (
@@ -91,18 +92,15 @@ navigator.navigate("CardTrago" , {tragoId: item.idDrink})
             data={trago}
             keyExtractor={(item) => item.drinks[0].idDrink}
             renderItem={cargarTrago}
-            RefreshControl={
-              <RefreshControl
-              refreshing={refreshing}
-              onRefresh={onRefresh}
-                colors={["#1A237E"]}
-              />
+            refreshControl={
+              // Cambia RefreshControl a refreshControl
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             }
           />
         ) : (
           <Text>No tiene Tragos Guardados</Text>
         )}
-    </View>
+      </View>
   );
 };
 const styles = StyleSheet.create({

@@ -35,3 +35,15 @@ export const addNewFavorite = async (item) => {
     console.error("Error al guardar el archivo ", error);
   }
 };
+  export const addLicor = async (item)=> {
+    try{
+      const docRef=doc(firebase.db , "Licor" , item)
+      await setDoc(
+        docRef, {
+          name : item
+        }
+      )
+    }catch(e){
+      console.error(e)
+    } 
+};

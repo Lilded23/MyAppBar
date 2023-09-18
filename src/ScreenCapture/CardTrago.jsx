@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Text, Image, TouchableOpacity, ScrollView } from "react-native";
 import { busquedaApiId } from "../Connection";
+import { addLicor } from "../../dababase/acciones";
 
 export const CardTrago = ({ route }) => {
   const [trago, setTrago] = useState([]);
   const { tragoId } = route.params;
+  const [lista , setLista] = useState({})
+
+
   useEffect(() => {
     const cargarTragos = async (tragoId) => {
       try {
@@ -17,6 +21,8 @@ export const CardTrago = ({ route }) => {
     };
     cargarTragos(tragoId);
   }, [tragoId]);
+
+
 
   const renderIngredients = () => {
     const ingredientes = [];
@@ -32,8 +38,14 @@ export const CardTrago = ({ route }) => {
           </Text>
         );
       }
+    //  setLista(ingredient);
     }
+    
     return ingredientes;
+  };
+  const handleGuardarIngredientes = () => {
+    // Llama a la función addLicor con la lista de ingredientes
+    addLicor(lista);
   };
 
   return (
@@ -43,9 +55,9 @@ export const CardTrago = ({ route }) => {
       <Text style={styles.titulo}>{trago.strDrink}</Text>
       <Text style={styles.instruc}>{trago.strInstructions}</Text>
       {renderIngredients()}
-      <TouchableOpacity>
+      <TouchableOpacity onPress={()=>handleGuardarIngredientes()}>
         <View style={styles.buttonAdd}>
-          <Text style={styles.buttonText}>Guardar</Text>
+          <Text style={styles.buttonText}>Guardar Ingredientes</Text>
         </View>
       </TouchableOpacity>  
     </View >
@@ -82,13 +94,15 @@ const styles = StyleSheet.create({
   },
 
   buttonAdd:{
-   color:'#000000',
-   backgroundColor:'#00897B',
+   backgroundColor:'#2471A3',
    paddingHorizontal:30,
-   paddingVertical:10,
+   paddingVertical:20,
    marginTop:10,
    borderRadius:100,
-   marginBottom:0 
+   marginBottom:70,
+   borderColor:'#154360',
+   borderWidth:1,
+
   },
   buttonText:{
     color:'white',

@@ -45,4 +45,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 500,
     borderBottomLeftRadius: 500,
   },
+  ButtomMenuBarStyle:{
+    backgroundColor:'transparent'
+  }
 });

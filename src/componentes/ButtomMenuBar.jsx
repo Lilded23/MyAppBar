@@ -16,7 +16,6 @@ export const ButtomMenuBar = () => {
         screenOptions={{
           headerShown: false,
           tabBarStyle: {
-           
             backgroundColor: "#212F3C",
             borderTopLeftRadius: 50,
             borderTopRightRadius:50,
@@ -24,7 +23,7 @@ export const ButtomMenuBar = () => {
             paddingHorizontal: 20,
             marginTop: 0,
             height: 80,
-
+            overflow: 'hidden'
           },
           
         }}
