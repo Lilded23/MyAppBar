@@ -6,7 +6,6 @@ import { addLicor } from "../../dababase/acciones";
 export const CardTrago = ({ route }) => {
   const [trago, setTrago] = useState([]);
   const { tragoId } = route.params;
-  const [lista , setLista] = useState({})
 
 
   useEffect(() => {
@@ -38,14 +37,26 @@ export const CardTrago = ({ route }) => {
           </Text>
         );
       }
-    //  setLista(ingredient);
     }
     
     return ingredientes;
   };
   const handleGuardarIngredientes = () => {
     // Llama a la función addLicor con la lista de ingredientes
-    addLicor(lista);
+    const ingredientes = {};
+    try {     
+      for (let i = 1; i <= 15; i++) {
+        const ingredienteKey = `strIngredient${i}`;
+        const ingredient = trago[ingredienteKey];
+        if (ingredient) {
+          ingredientes[`ingrediente${i}`]=ingredient;
+        }
+      }
+      addLicor(ingredientes);
+    } catch (error) {
+      console.error("error al guardar" , error)
+    }
+
   };
 
   return (
@@ -55,7 +66,7 @@ export const CardTrago = ({ route }) => {
       <Text style={styles.titulo}>{trago.strDrink}</Text>
       <Text style={styles.instruc}>{trago.strInstructions}</Text>
       {renderIngredients()}
-      <TouchableOpacity onPress={()=>handleGuardarIngredientes()}>
+      <TouchableOpacity onPress={handleGuardarIngredientes()}>
         <View style={styles.buttonAdd}>
           <Text style={styles.buttonText}>Guardar Ingredientes</Text>
         </View>

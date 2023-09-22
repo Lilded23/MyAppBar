@@ -33,10 +33,8 @@ export const ButtomMenuBar = () => {
           component={Home}
           options={{ tabBarShowLabel:false,
             tabBarIcon: ({focused}) => {
-              return (
-               
-                  <Icon name="home" size={50} color="#2980B9" style={{color: focused ? '#2980B9' : '#797D7F'}}></Icon>
-               
+              return (      
+                  <Icon name="home" size={50} color="#2980B9" style={{color: focused ? '#2980B9' : '#797D7F'}}></Icon>          
               );
             },
           }}
