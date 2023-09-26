@@ -3,9 +3,17 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from "react-nati
 import { cargarLicor } from "../../dababase/acciones";
 import { AntDesign } from '@expo/vector-icons';
 import { eliminarLicor } from "../../dababase/acciones";
+import { RefreshControl } from "react-native";
 
 export const CartShopping = () => {
   const [listaTragos, setListaTragos] = useState([])
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = () => {
+    console.log("refreshing");
+    setRefreshing(true);
+    fetchData().then(() => setRefreshing(false));
+  };
 
   const fetchData = async () => {
     try {
@@ -69,7 +77,12 @@ export const CartShopping = () => {
   
 
   return (
-    <ScrollView contentContainerStyle={styles.ScrollContainer}>
+    <ScrollView contentContainerStyle={styles.ScrollContainer}
+    refreshControl={
+      // Cambia RefreshControl a refreshControl
+      <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+      style={{ minHeight: '100%' }}
+    >
       <View style={styles.container}>
         {listaTragos.map((item, index) => {
           return (
@@ -95,11 +108,9 @@ export const CartShopping = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "flex-start",
+    justifyContent: 'space-between',
     paddingHorizontal: 5,
     backgroundColor: "#34495E",
-    paddingTop:10,
-    paddingBottom:700
   },
   containerInput:{
     flex:1,
@@ -110,7 +121,7 @@ const styles = StyleSheet.create({
     borderRadius:50,
     marginBottom:10,
     justifyContent:'space-between',
-    paddingHorizontal:20
+    paddingHorizontal:20,
 
   },
   textInput:{
@@ -124,6 +135,8 @@ const styles = StyleSheet.create({
   },
   ScrollContainer:{
     backgroundColor: "#34495E",
-    flex:0
+    flex:0,
+    minHeight: '100',
+    height: '100%',
   }
 });

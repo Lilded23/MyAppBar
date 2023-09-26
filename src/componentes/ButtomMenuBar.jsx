@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Home } from "../ScreenCapture/Home";
 import { CartShopping } from "../ScreenCapture/CartShopping";
 import BuscarTragoRouter from "./Router";
+import { KeyboardAvoidingView } from "react-native";
 
 const Tab = createBottomTabNavigator();
 
@@ -25,6 +26,7 @@ export const ButtomMenuBar = () => {
             height: 80,
             overflow: 'hidden'
           },
+          tabBarHideOnKeyboard:true
           
         }}
       >

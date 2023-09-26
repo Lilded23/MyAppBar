@@ -80,11 +80,14 @@ export const CardTrago = ({ route }) => {
 const styles = StyleSheet.create({
   scrollContainer: {
     flex: 1,
+    height:'100%',
+    backgroundColor: "#34495E",
   },
   container: {
     backgroundColor: "#34495E",
     alignItems: "center",
     paddingTop: 40,
+    
   },
   image: {
     width: 300,
@@ -110,7 +113,6 @@ const styles = StyleSheet.create({
    paddingVertical:20,
    marginTop:10,
    borderRadius:100,
-   marginBottom:70,
    borderColor:'#154360',
    borderWidth:1,
 
