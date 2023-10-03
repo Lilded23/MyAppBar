@@ -38,7 +38,7 @@ export const CartShopping = () => {
         //console.log(licores)
       });
       setListaTragos(licores)
-      console.log(listaTragos);
+     // console.log(listaTragos);
     } catch (error) {
       console.error(error);
     }
