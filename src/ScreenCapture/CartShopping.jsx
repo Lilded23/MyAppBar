@@ -73,7 +73,7 @@ export const CartShopping = () => {
     }
   };
   
-  
+  //console.log(listaTragos)
   
 
   return (
@@ -87,7 +87,7 @@ export const CartShopping = () => {
         {listaTragos.map((item, index) => {
           return (
             <View key={index}>
-              <Text style={styles.textInput}>{item.nombreLicor}</Text>
+             
               {item.ingredientes.map((ingrediente, ingredienteIndex) => (
                 <View key={ingredienteIndex} style={styles.containerInput}>
                   <Text style={styles.textInput}>{ingrediente}</Text>
@@ -136,7 +136,6 @@ const styles = StyleSheet.create({
   ScrollContainer:{
     backgroundColor: "#34495E",
     flex:0,
-    minHeight: '100',
-    height: '100%',
+    
   }
 });
